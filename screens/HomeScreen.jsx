@@ -22,6 +22,8 @@ const HomeScreen = () => {
 	const [password, setPassword] = useState("");
 	const [loggedIn, setLoggedIn] = useState(false);
 
+	const navigation = useNavigation();
+
 	// Check if user is already logged in on component mount
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -66,19 +68,20 @@ const HomeScreen = () => {
 		}
 	};
 
+	const handleBlackjack = () => {
+		navigation.navigate("Blackjack");
+	};
+
 	// If user is logged in, show basic home page
 	if (loggedIn) {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.header}>Welcome to the GameDen!</Text>
 				<View style={styles.roomContainer}>
+					<Pressable onPress={() => handleBlackjack()} style={styles.button}>
+						<Text style={styles.roomButton}>Blackjack</Text>
+					</Pressable>
 					<Pressable onPress={() => auth.signOut()} style={styles.button}>
-						<Text style={styles.roomButton}>Create Room</Text>
-					</Pressable>
-					<Pressable style={styles.button}>
-						<Text style={styles.roomButton}>Join Room</Text>
-					</Pressable>
-					<Pressable style={styles.button}>
 						<Text style={styles.SignupButton}>Logout</Text>
 					</Pressable>
 				</View>
